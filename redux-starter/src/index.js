@@ -1,18 +1,50 @@
-import store from './store';
-import { bugAdded, bugRemoved, bugResolved } from './actions';
+// import store from './store';
+// import { bugAdded, bugRemoved, bugResolved } from './actions';
 
-const unsubscribe = store.subscribe(() => {
-  console.log('Store changed', store.getState())
-})
+// const unsubscribe = store.subscribe(() => {
+//   console.log('Store changed', store.getState())
+// })
 
-store.dispatch(bugAdded('Bug1'));
-store.dispatch(bugAdded('Bug2'));
-store.dispatch(bugAdded('Bug3'));
-store.dispatch(bugAdded('Bug4'));
-store.dispatch(bugResolved(3));
+// store.dispatch(bugAdded('Bug1'));
+// store.dispatch(bugAdded('Bug2'));
+// store.dispatch(bugAdded('Bug3'));
+// store.dispatch(bugAdded('Bug4'));
+// store.dispatch(bugResolved(3));
 
-// unsubscribe();
+// // unsubscribe();
 
-store.dispatch(bugRemoved(1))
+// store.dispatch(bugRemoved(1))
+// console.log(store.getState());
 
-console.log(store.getState());
+
+import { Map } from 'immutable';
+
+let book = { title: "2001: A Space Odyssey" };
+let bookMap = Map(book);
+
+function publish(book) {
+  return book.set("isPublished", true);
+}
+
+bookMap = publish(bookMap);
+
+console.log(book);
+console.log(bookMap.get("title"))
+console.log(bookMap.get("isPublished"))
+console.log(bookMap.toJS())
+
+
+// import { produce } from 'immer';
+
+// let book = { title: "2001: A Space Odyssey" };
+
+// function publish(book) {
+//   return produce(book, draftBook => {
+//     draftBook.isPublished = true;
+//   })
+// }
+
+// let updated = publish(book);
+
+// console.log(book);
+// console.log(updated);

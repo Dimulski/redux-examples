@@ -17,21 +17,21 @@
 // console.log(store.getState());
 
 
-import { Map } from 'immutable';
+// import { Map } from 'immutable';
 
-let book = { title: "2001: A Space Odyssey" };
-let bookMap = Map(book);
+// let book = { title: "2001: A Space Odyssey" };
+// let bookMap = Map(book);
 
-function publish(book) {
-  return book.set("isPublished", true);
-}
+// function publish(book) {
+//   return book.set("isPublished", true);
+// }
 
-bookMap = publish(bookMap);
+// bookMap = publish(bookMap);
 
-console.log(book);
-console.log(bookMap.get("title"))
-console.log(bookMap.get("isPublished"))
-console.log(bookMap.toJS())
+// console.log(book);
+// console.log(bookMap.get("title"))
+// console.log(bookMap.get("isPublished"))
+// console.log(bookMap.toJS())
 
 
 // import { produce } from 'immer';
@@ -48,3 +48,15 @@ console.log(bookMap.toJS())
 
 // console.log(book);
 // console.log(updated);
+
+
+import store from './customStore';
+import * as actions from './actions'
+
+store.subscribe(() => {
+  console.log("Store changed")
+})
+
+store.dispatch(actions.bugAdded("Bug 1"))
+
+console.log(store.getState())

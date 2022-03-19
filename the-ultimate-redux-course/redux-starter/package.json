@@ -17,6 +17,7 @@
     "immer": "^9.0.12",
     "immutable": "^4.0.0",
     "lodash": "^4.17.21",
-    "redux": "^4.1.2"
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9"
   }
 }

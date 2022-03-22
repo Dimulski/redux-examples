@@ -15,6 +15,11 @@ const slice = createSlice({
       })
     },
 
+    bugRemoved: (bugs, action) => {
+      const index = bugs.findIndex(bug => bug.id === action.payload.id);
+      bugs.splice(index, 1)
+    },
+
     bugResolved: (bugs, action) => {
       const index = bugs.findIndex(bug => bug.id === action.payload.id);
       bugs[index].resolved = true;
@@ -24,7 +29,7 @@ const slice = createSlice({
 
 // console.log(slice);
 
-export const { bugAdded, bugResolved } = slice.actions;
+export const { bugAdded, bugRemoved, bugResolved } = slice.actions;
 export default slice.reducer
 
 

@@ -5,7 +5,8 @@ let lastId = 0;
 const slice = createSlice({
   name: "projects",
   initialState: [],
-  reducers: {
+  reducers: { // action handlers
+    // mapping action => action handler
     projectAdded: (projects, action) => {
       projects.push({
         id: ++lastId,

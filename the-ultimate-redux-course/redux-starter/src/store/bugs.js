@@ -5,6 +5,15 @@ let lastId = 0;
 const slice = createSlice({
   name: 'bugs',
   initialState: [],
+  // {
+  //   byId: {
+  //     1: { ... },
+  //     2: { ... },
+  //     3: { ... },
+  //   },
+  //   allIds: [3, 1, 2]
+  // }
+
   reducers: {
     // actions => action handlers
     bugAdded: (bugs, action) => {
@@ -31,6 +40,11 @@ const slice = createSlice({
 
 export const { bugAdded, bugRemoved, bugResolved } = slice.actions;
 export default slice.reducer
+
+// Selector function
+export const getUnresolvedBugs = (state) => {
+  return state.entities.bugs.filter(bug => !bug.resolved);
+}
 
 
 // Action creators

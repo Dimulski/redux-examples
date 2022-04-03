@@ -22,7 +22,7 @@ const slice = createSlice({
         id: ++lastId,
         description: action.payload.description,
         resolved: false,
-        assignee: null
+        userId: null
       })
     },
 
@@ -37,8 +37,9 @@ const slice = createSlice({
     },
 
     bugAssigned: (bugs, action) => {
-      const index = bugs.findIndex(bug => bug.id === action.payload.bugId);
-      bugs[index].assignee = action.payload.userId;
+      const { bugId, userId } = action.payload;
+      const index = bugs.findIndex(bug => bug.id === bugId);
+      bugs[index].userId = userId;
     },
   }
 })
@@ -60,19 +61,9 @@ export const getUnresolvedBugs = createSelector(
   (bugs, projects) => bugs.filter(bug => !bug.resolved)
 )
 
-export const getBugsAssignedToUser = createSelector(
-  [
-    state => state.entities.bugs,
-    state => state.entities.users,
-    (state, userId) => userId
-  ],
-  (bugs, users, userId) => {
-    if (!users.find(user => user.id === userId)) {
-      return [];
-    }
-    
-    return bugs.filter(bug => bug.assignee === userId)
-  }
+export const getBugsByUser = userId => createSelector(
+  state => state.entities.bugs,
+  bugs => bugs.filter(bug => bug.userId === userId)
 )
 
 // Action creators

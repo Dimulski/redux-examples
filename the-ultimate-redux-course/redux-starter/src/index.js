@@ -85,7 +85,7 @@
 
 
 import configureStore from './store/configureStore';
-import { bugAdded, bugResolved, bugAssigned, getBugsAssignedToUser } from './store/bugs';
+import { bugAdded, bugResolved, bugAssigned, getBugsByUser } from './store/bugs';
 import { projectAdded } from './store/projects';
 import { userAdded } from './store/users';
 
@@ -107,8 +107,8 @@ store.dispatch(bugAssigned({ bugId: 3, userId: 2 }))
 store.dispatch(bugAssigned({ bugId: 4, userId: 2 }))
 store.dispatch(bugAssigned({ bugId: 5, userId: 2 }))
 
-const x = getBugsAssignedToUser(store.getState(), 1)
-const y = getBugsAssignedToUser(store.getState(), 2)
+const x = getBugsByUser(1)(store.getState())
+const y = getBugsByUser(2)(store.getState())
 
 console.log(x);
 console.log(y);

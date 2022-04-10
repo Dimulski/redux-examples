@@ -8,8 +8,8 @@ export default function() {
     reducer,
     middleware: (getDefaultMiddleware) => [
       ...getDefaultMiddleware(),
-      errorToast,
-      logger({ destination: "console" })
+      logger({ destination: "console" }),
+      errorToast
     ]
   });
 };

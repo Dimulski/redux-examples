@@ -128,27 +128,42 @@
 // });
 
 
-// Middleware exercise
+// // Middleware exercise
+// import configureStore from './store/configureStore';
+// import { projectAdded } from './store/projects';
+
+// const store = configureStore();
+
+// store.dispatch((dispatch, getState) => {
+//   dispatch(projectAdded({ name: "Project 1" }));
+// });
+// store.dispatch((dispatch, getState) => {
+//   dispatch({
+//     type: 'error',
+//     payload: { message: "An error occured." }
+//   });
+// });
+// store.dispatch((dispatch, getState) => {
+//   dispatch({
+//     type: 'error',
+//     payload: { message: "An error occured." }
+//   });
+// });
+// store.dispatch((dispatch, getState) => {
+//   dispatch(projectAdded({ name: "Project 4" }));
+// });
+
+
+// // API middleware
 import configureStore from './store/configureStore';
-import { projectAdded } from './store/projects';
 
 const store = configureStore();
 
-store.dispatch((dispatch, getState) => {
-  dispatch(projectAdded({ name: "Project 1" }));
-});
-store.dispatch((dispatch, getState) => {
-  dispatch({
-    type: 'error',
-    payload: { message: "An error occured." }
-  });
-});
-store.dispatch((dispatch, getState) => {
-  dispatch({
-    type: 'error',
-    payload: { message: "An error occured." }
-  });
-});
-store.dispatch((dispatch, getState) => {
-  dispatch(projectAdded({ name: "Project 4" }));
-});
+store.dispatch({
+  type: 'apiCallBegan', // apiRequest,
+  payload: {
+    url: '/bugs',
+    onSuccess: 'bugsReceived',
+    onError: 'apiRequestFailed',
+  }
+})

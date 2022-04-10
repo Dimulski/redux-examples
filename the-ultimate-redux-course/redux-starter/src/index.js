@@ -115,14 +115,40 @@
 
 
 // Dispatching functions
+// import configureStore from './store/configureStore';
+// const store = configureStore();
+
+// store.dispatch((dispatch, getState) => {
+//   // Call an API
+//   // When the promise is resolved => dispatch();
+//   dispatch({ type: 'bugsReceived', bugs: [1, 2, 3] })
+//   console.log(getState())
+//   // If the promise is rejected => dispatch();
+
+// });
+
+
+// Middleware exercise
 import configureStore from './store/configureStore';
+import { projectAdded } from './store/projects';
+
 const store = configureStore();
 
 store.dispatch((dispatch, getState) => {
-  // Call an API
-  // When the promise is resolved => dispatch();
-  dispatch({ type: 'bugsReceived', bugs: [1, 2, 3] })
-  console.log(getState())
-  // If the promise is rejected => dispatch();
-
+  dispatch(projectAdded({ name: "Project 1" }));
+});
+store.dispatch((dispatch, getState) => {
+  dispatch({
+    type: 'error',
+    payload: { message: "An error occured." }
+  });
+});
+store.dispatch((dispatch, getState) => {
+  dispatch({
+    type: 'error',
+    payload: { message: "An error occured." }
+  });
+});
+store.dispatch((dispatch, getState) => {
+  dispatch(projectAdded({ name: "Project 4" }));
 });

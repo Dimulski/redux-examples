@@ -1,15 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import reducer from  './reducer';
 import logger from './middleware/logger';
-// import func from './middleware/func';
-
-
+import errorToast from './middleware/errorToast';
 
 export default function() {
   return configureStore({
     reducer,
     middleware: (getDefaultMiddleware) => [
       ...getDefaultMiddleware(),
+      errorToast,
       logger({ destination: "console" })
     ]
   });

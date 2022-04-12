@@ -1,0 +1,3 @@
+action: bugsRequested
+reducer: loading = true
+middleware: dispatch new action before the api request

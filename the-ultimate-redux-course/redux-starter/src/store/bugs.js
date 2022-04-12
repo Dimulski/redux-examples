@@ -5,7 +5,11 @@ let lastId = 0;
 
 const slice = createSlice({
   name: 'bugs',
-  initialState: [],
+  initialState: {
+    list: [],
+    loading: false,
+    lastFetch: null
+  },
   // {
   //   byId: {
   //     1: { ... },
@@ -18,7 +22,7 @@ const slice = createSlice({
   reducers: {
     // actions => action handlers
     bugAdded: (bugs, action) => {
-      bugs.push({
+      bugs.list.push({
         id: ++lastId,
         description: action.payload.description,
         resolved: false,
@@ -27,19 +31,19 @@ const slice = createSlice({
     },
 
     bugRemoved: (bugs, action) => {
-      const index = bugs.findIndex(bug => bug.id === action.payload.id);
-      bugs.splice(index, 1)
+      const index = bugs.list.findIndex(bug => bug.id === action.payload.id);
+      bugs.list.splice(index, 1)
     },
 
     bugResolved: (bugs, action) => {
-      const index = bugs.findIndex(bug => bug.id === action.payload.id);
-      bugs[index].resolved = true;
+      const index = bugs.list.findIndex(bug => bug.id === action.payload.id);
+      bugs.list[index].resolved = true;
     },
 
     bugAssigned: (bugs, action) => {
       const { bugId, userId } = action.payload;
-      const index = bugs.findIndex(bug => bug.id === bugId);
-      bugs[index].userId = userId;
+      const index = bugs.list.findIndex(bug => bug.id === bugId);
+      bugs.list[index].userId = userId;
     },
   }
 })

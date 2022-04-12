@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
+import { apiCallBegan } from './api';
 
 let lastId = 0;
 
@@ -21,6 +22,10 @@ const slice = createSlice({
 
   reducers: {
     // actions => action handlers
+    bugsReceived: (bugs, action) => {
+      bugs.list = action.payload;
+    },
+
     bugAdded: (bugs, action) => {
       bugs.list.push({
         id: ++lastId,
@@ -50,8 +55,16 @@ const slice = createSlice({
 
 // console.log(slice);
 
-export const { bugAdded, bugRemoved, bugResolved, bugAssigned } = slice.actions;
+export const { bugAdded, bugRemoved, bugResolved, bugAssigned, bugsReceived } = slice.actions;
 export default slice.reducer
+
+// Action Creators
+const url = "/bugs";
+
+export const loadBugs = () => apiCallBegan({
+  url,
+  onSuccess: bugsReceived.type,
+})
 
 // Selector function
 // export const getUnresolvedBugs = (state) => {
@@ -59,6 +72,7 @@ export default slice.reducer
 // }
 
 // Memoization - technique for optimizing expensive functions
+// bugs => get unresolved bugs from the cache
 export const getUnresolvedBugs = createSelector(
   state => state.entities.bugs,
   state => state.entities.projects,

@@ -1,0 +1,2 @@
+As mentioned in 9 - Caching @ 5:50 - the simple loadBugs cache should be refactored into a more general caching solution
+Store API endpoint variables and magic variables in a configuration file

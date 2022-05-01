@@ -50,8 +50,8 @@ const slice = createSlice({
     },
 
     bugAssigned: (bugs, action) => {
-      const { bugId, userId } = action.payload;
-      const index = bugs.list.findIndex(bug => bug.id === bugId);
+      const { id, userId } = action.payload;
+      const index = bugs.list.findIndex(bug => bug.id === id);
       bugs.list[index].userId = userId;
     },
   }
@@ -97,7 +97,21 @@ export const addBug = bug => apiCallBegan({
   method: "post",
   data: bug,
   onSuccess: bugAdded.type
-})
+});
+
+export const assignBug = bug => apiCallBegan({
+  url: `${url}/${bug.bugId}`,
+  method: "patch",
+  data: bug,
+  onSuccess: bugAssigned.type
+});
+
+export const resolveBug = bug => apiCallBegan({
+  url: `${url}/${bug.bugId}`,
+  method: "patch",
+  data: {...bug, resolved: true },
+  onSuccess: bugResolved.type
+});
 
 // export const loadBugs = () => apiCallBegan({
 //   url,
@@ -116,12 +130,12 @@ export const addBug = bug => apiCallBegan({
 export const getUnresolvedBugs = createSelector(
   state => state.entities.bugs,
   state => state.entities.projects,
-  (bugs, projects) => bugs.filter(bug => !bug.resolved)
+  (bugs, projects) => bugs.list.filter(bug => !bug.resolved)
 )
 
 export const getBugsByUser = userId => createSelector(
   state => state.entities.bugs,
-  bugs => bugs.filter(bug => bug.userId === userId)
+  bugs => bugs.list.filter(bug => bug.userId === userId)
 )
 
 // Action creators
